@@ -1,6 +1,6 @@
-from marshmallow import Schema, fields, ValidationError
+from marshmallow import Schema, fields
 
-class UserSchem(Schema):
+class UserSchema(Schema):
     name = fields.Str(
         required = True,
         validate = lambda x: len(x) >0,

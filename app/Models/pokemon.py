@@ -12,7 +12,7 @@ class Pokemon(SuperClass):
         raise NotImplementedError("Los pokemones no se pueden eliminar")
 
     def update(self, object_id, data):
-        raise NotImplementedError("Los pokemones no se pueden actuslizar")
+        raise NotImplementedError("Los pokemones no se pueden actualizar")
     
 
 
