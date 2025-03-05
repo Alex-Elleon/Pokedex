@@ -1,13 +1,13 @@
 from flask import Blueprint, jsonify
 from app.Models.factory import ModelFactory
-from bson import ObjectId 
+from bson import ObjectId
+from app.tools.response_manager import ResponseManager
 
-
-bp = Blueprint ("pokemons", __name__, url_prefix= "/pokemons")
-pokemon_model = ModelFactory.get_model("pokemons")
+RM = ResponseManager()
+bp = Blueprint ("user_Controllers", __name__, url_prefix= "/pokemons")
+PM = ModelFactory.get_model("pokemons")
 
 @bp.route("/get/<string:pokemon_id>", methods = ["GET"])
 def get_pokemon(pokemon_id):
-        
-        pokemon = pokemon_model.find_by_id(ObjectId(pokemon_id))
-        return jsonify("Los parametros enviados son incorrectos", 400)
+    pokemons = PM.find_by_id(ObjectId(pokemon_id))
+    return RM.error(pokemons)
