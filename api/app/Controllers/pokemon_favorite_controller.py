@@ -4,7 +4,7 @@
 #Especificar a cuales metodos no debe de poder acceder
 #Modificar la clase del modelo y evitar que se usen metodos indebidos
 
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request
 from marshmallow import ValidationError
 from app.tools.response_manager import ResponseManager
 from app.schemas.pokemon_favorites_schema import PokemonFavoriteSchema
@@ -33,9 +33,10 @@ def create():
         return RM.error("Es necesario enviar todos los parametros")
 
 @bp.route("/<string:id>", methods = ["DELETE"])
-def delete(pokemon_id):    
-        FP_model.delete(ObjectId(pokemon_id))
-        return RM.error("Los parametros enviados son incorrectos", 400)
+@jwt_required()
+def delete(id):
+        FP_model.delete(ObjectId(id))
+        return RM.success("Pokemon eliminado con exito")
 
 @bp.route('/get_all', methods=['GET'])
 @jwt_required()
